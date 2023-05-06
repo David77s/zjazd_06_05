@@ -13,8 +13,8 @@ class Enemy:
             self.health = 0
             print(f"{self.name} is dead.")
 
-    def attack(self, additional_attack: int):
-        print(f"Enemy attack with power {self.hit_power + additional_attack}")
+    def attack(self):
+        print(f"Enemy attack with power {self.hit_power}")
 
     def __str__(self):
         return f"Name {self.name}. Health: {self.health}. Hit power: {self.hit_power}"
@@ -22,7 +22,7 @@ class Enemy:
 
 class Troll(Enemy):
 
-    def __init__(self,name):
+    def __init__(self, name):
         super().__init__(name, 100, 20)
 
     def take_damage(self, damage):
@@ -30,11 +30,14 @@ class Troll(Enemy):
         if self.health == 0:
             self.health = 100
 
+    def attack(self):
+        print(f"Troll attack with power {self.hit_power}")
+
+
 class OtherEnemy(Enemy):
 
-    def __init__(self, name,hit_power):
-        super().__init__(name, 200, hit_power)
-
+    def __init__(self, name, hit_power):
+        super().__init__(name=name, health=200, hit_power=hit_power)
 
     def attack(self):
         if self.health < 20:
@@ -48,8 +51,7 @@ class OtherEnemy(Enemy):
             super().take_damage(damage)
 
 
-
-other_enemy = OtherEnemy("Other Enemy",50) #200 HP
+other_enemy = OtherEnemy("Other Enemy", 50)  # 200HP
 print(other_enemy)
 print(other_enemy.attack())
 other_enemy.take_damage(151)
@@ -60,8 +62,6 @@ other_enemy.take_damage(10)
 print(other_enemy)
 print("Should attack")
 other_enemy.attack()
-
-
 
 # Trolle zawsze miały 100 życia i 20 ataku HINT: super().
 # Chcemy mieć konstruktor który nie przyjmuje parametrów zycia i ataku
